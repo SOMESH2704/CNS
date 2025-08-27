@@ -29,6 +29,62 @@ becomes C. To change a message back, each letter is replaced by the one three be
 
 PROGRAM :-
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Function to perform Caesar Cipher encryption
+void caesarEncrypt(char *text, int key) {
+    for (int i = 0; text[i] != '\0'; i++) {
+        char c = text[i];
+
+        // Check if the character is an uppercase letter
+        if (c >= 'A' && c <= 'Z') {
+            text[i] = ((c - 'A' + key) % 26 + 26) % 26 + 'A';
+        }
+        // Check if the character is a lowercase letter
+        else if (c >= 'a' && c <= 'z') {
+            text[i] = ((c - 'a' + key) % 26 + 26) % 26 + 'a';
+        }
+        // Non-alphabetical characters remain unchanged
+    }
+}
+
+// Function to perform Caesar Cipher decryption
+void caesarDecrypt(char *text, int key) {
+    // Decryption is the same as encryption with a negative key
+    caesarEncrypt(text, -key);
+}
+
+int main() {
+    char message[100];  // Character array to store the message
+    int key;
+
+    printf("Enter the message to encrypt: ");
+    fgets(message, sizeof(message), stdin); // Read input from the user
+
+    // Remove trailing newline character from message if present
+    size_t len = strlen(message);
+    if (len > 0 && message[len - 1] == '\n') {
+        message[len - 1] = '\0';
+    }
+
+    printf("Enter the Caesar Cipher key (an integer): ");
+    scanf("%d", &key); // Read the key from the user
+
+    // Encrypt the message
+    caesarEncrypt(message, key);
+    printf("Encrypted Message: %s\n", message);
+
+    // Decrypt the message back to the original
+    caesarDecrypt(message, key);
+    printf("Decrypted Message: %s\n", message);
+
+    return 0;
+}
 
 
 OUTPUT :-
+
+<img width="379" height="157" alt="image" src="https://github.com/user-attachments/assets/9c688fb9-fb0a-4ea7-91c1-8f1b49cbbf22" />
+
